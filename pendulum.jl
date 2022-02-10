@@ -35,11 +35,12 @@ t_range = (0.0, 100.0)
 u = deg2rad.([θ₁, ω₁, θ₂, ω₂])
 
 # Setup and solve ODE system
+println("Starting solve.")
 prob = ODEProblem(deriv!, u, t_range)
 sol = solve(prob, reltol=1e-6)
 
 # Create a gif
-println("Starting creation.")
+println("Starting gif creation.")
 anim = @animate for t in tqdm(0:0.025:50)
     frame = sol(t)
     x₁ = l₁ * sin(frame[1])
@@ -61,4 +62,4 @@ anim = @animate for t in tqdm(0:0.025:50)
 end
 
 gif(anim, "output.gif", fps=30)
-println("Finished creation.")
+println("Finished gif creation.")
